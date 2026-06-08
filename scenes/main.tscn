@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://ca0ix7a7oyt2b"]
 
-[node name="Main" type="Node" unique_id=1974821569]
+[ext_resource type="Script" uid="uid://cysvcsgr43ie0" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://cxxrprtmru8l2" path="res://scenes/level.tscn" id="2_0wfyh"]
+
+[node name="Main" type="Node" unique_id=1974821569 node_paths=PackedStringArray("control")]
+script = ExtResource("1_o5qli")
+level = ExtResource("2_0wfyh")
+control = NodePath("Control")
 
 [node name="Control" type="Control" parent="." unique_id=179753141]
 layout_mode = 3
@@ -41,3 +47,5 @@ text = "Start"
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Exit"
+
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

@@ -1,6 +1,7 @@
 [gd_resource type="TileSet" format=3 uid="uid://bx0gcysqvwrjx"]
 
 [ext_resource type="Texture2D" uid="uid://bikagml78wnbw" path="res://assets/tilesets/ForgottenDungeon.png" id="1_50mqd"]
+[ext_resource type="Texture2D" uid="uid://dyhsd8nfqcutf" path="res://assets/tilesets/GrassLand/Props/GrassLand_Entry_1.png" id="2_yk7r0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yk7r0"]
 texture = ExtResource("1_50mqd")
@@ -136,6 +137,12 @@ texture = ExtResource("1_50mqd")
 8:9/0 = 0
 9:9/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lbx55"]
+texture = ExtResource("2_yk7r0")
+0:0/0 = 0
+0:1/0 = 0
+
 [resource]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_yk7r0")
+sources/2 = SubResource("TileSetAtlasSource_lbx55")

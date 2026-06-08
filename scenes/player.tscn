@@ -21,7 +21,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(24, 26)
 
-[node name="player" type="CharacterBody2D" unique_id=2105447671]
+[node name="player" type="CharacterBody2D" unique_id=2105447671 groups=["player"]]
 script = ExtResource("1_3vyb7")
 SPEED = 100.0
 JUMP_VELOCITY = -250.0
