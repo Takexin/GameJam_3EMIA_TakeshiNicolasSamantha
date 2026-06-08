@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ca0ix7a7oyt2b"]
+
+[node name="Main" type="Node" unique_id=1974821569]
+
+[node name="Control" type="Control" parent="." unique_id=179753141]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1916212386]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer" unique_id=1082990565]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/VBoxContainer" unique_id=718359579]
+layout_mode = 2
+theme_override_font_sizes/font_size = 44
+text = "Behind the Door"
+
+[node name="Button" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=956486225]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Start"
+
+[node name="Button2" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=140707954]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Exit"

@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://b5hbqvm3cmv3q"]
+
+[ext_resource type="Script" uid="uid://dvlwnqbl4bxdi" path="res://scripts/enemy.gd" id="1_5uy6h"]
+[ext_resource type="Texture2D" uid="uid://c1avxbdk2w01j" path="res://icon.svg" id="2_4ra3w"]
+[ext_resource type="Script" uid="uid://dofs7kpwj50os" path="res://scripts/killzone.gd" id="2_md0e3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8tegq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uy6h")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ra3w"]
+size = Vector2(25, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4w8v"]
+size = Vector2(28, 22)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1043551310]
+script = ExtResource("1_5uy6h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1833163393]
+position = Vector2(0, 3)
+scale = Vector2(-0.21711423, 0.16418375)
+sprite_frames = SubResource("SpriteFrames_8tegq")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.6496995
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1713668317]
+position = Vector2(-0.5, 3.5)
+shape = SubResource("RectangleShape2D_4ra3w")
+
+[node name="floorLeft" type="RayCast2D" parent="." unique_id=1657862250]
+position = Vector2(0, 7)
+target_position = Vector2(-20, 10)
+
+[node name="floorRight" type="RayCast2D" parent="." unique_id=1221284195]
+position = Vector2(0, 7)
+target_position = Vector2(20, 10)
+
+[node name="killzone" type="Area2D" parent="." unique_id=2024253928]
+script = ExtResource("2_md0e3")
+metadata/_custom_type_script = "uid://dofs7kpwj50os"
+
+[node name="Collision" type="CollisionShape2D" parent="killzone" unique_id=2093868548]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_c4w8v")
