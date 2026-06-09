@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://dofs7kpwj50os" path="res://scripts/killzone.gd" id="6_2r41h"]
 [ext_resource type="Script" uid="uid://ddlg8exvjmr4q" path="res://scripts/final_platform.gd" id="7_klq6b"]
 [ext_resource type="PackedScene" uid="uid://b0ek7f13ak7vo" path="res://scenes/door.tscn" id="9_8c41q"]
+[ext_resource type="Shader" uid="uid://cn2uqn7tjwceo" path="res://shaders/vignette.gdshader" id="10_olg7q"]
+[ext_resource type="Shader" uid="uid://cj0ti3gs6bdo0" path="res://shaders/crt.gdshader" id="11_t1rx8"]
 
 [sub_resource type="Animation" id="Animation_b121j"]
 length = 0.001
@@ -128,6 +130,36 @@ _data = {
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_klq6b"]
 normal = Vector2(-1, 0)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_olg7q"]
+shader = ExtResource("10_olg7q")
+shader_parameter/radius = 0.0
+shader_parameter/speed = 2.000000095
+shader_parameter/effect_color = Color(1, 0.9607843, 0.9529412, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8iemx"]
+shader = ExtResource("11_t1rx8")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.0
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
 [node name="level" type="Node2D" unique_id=1766303284]
 texture_filter = 1
 script = ExtResource("1_b121j")
@@ -181,7 +213,7 @@ autoplay = &"move"
 position = Vector2(2625, 96)
 
 [node name="player" parent="." unique_id=2105447671 instance=ExtResource("2_w7c3h")]
-position = Vector2(1677, 65)
+position = Vector2(181, 65)
 
 [node name="Camera2D2" type="Camera2D" parent="player" unique_id=2131165497]
 zoom = Vector2(3, 3)
@@ -190,6 +222,9 @@ limit_left = 0
 limit_bottom = 350
 limit_smoothed = true
 position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_horizontal_offset = -1.0
+drag_right_margin = 0.0
 
 [node name="Enemy" parent="." unique_id=1043551310 instance=ExtResource("3_w8frs")]
 position = Vector2(1227, 112)
@@ -209,6 +244,19 @@ script = ExtResource("7_klq6b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="finalPlatform" unique_id=1125105201]
 position = Vector2(-10, 0)
 shape = SubResource("WorldBoundaryShape2D_klq6b")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1573505517]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=728709530]
+material = SubResource("ShaderMaterial_olg7q")
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(1, 1, 1, 0)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer" unique_id=1020560778]
+material = SubResource("ShaderMaterial_8iemx")
+offset_right = 1152.0
+offset_bottom = 648.0
 
 [connection signal="body_entered" from="tilemap/Plataforma4/Area2D" to="tilemap/Plataforma4" method="_on_area_2d_body_entered"]
 [connection signal="finished" from="tilemap/Door" to="." method="_on_door_finished"]

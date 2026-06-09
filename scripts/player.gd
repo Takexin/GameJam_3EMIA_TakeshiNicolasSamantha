@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var ACCEL : float = 20.0
 
 @export var RUN_MULTIPLIER : float = 10.0
-var multiplier : float = 0.0
+var multiplier : float = 1.0
 
 var can_jump : bool = false
 func handle_jump() -> void:
