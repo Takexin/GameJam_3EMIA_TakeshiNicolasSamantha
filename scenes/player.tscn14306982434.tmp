@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://b3n5nolf10ovv"]
+
+[ext_resource type="Script" uid="uid://cdtuyppiwio1i" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://c1avxbdk2w01j" path="res://icon.svg" id="2_g2els"]
+[ext_resource type="AudioStream" uid="uid://jpw1fd8qg60t" path="res://assets/audio/walking.mp3" id="3_qhqgy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
+atlas = ExtResource("2_g2els")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dqkch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhqgy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(24, 26)
+
+[node name="player" type="CharacterBody2D" unique_id=2105447671 node_paths=PackedStringArray("player", "audio") groups=["player"]]
+script = ExtResource("1_3vyb7")
+SPEED = 100.0
+JUMP_VELOCITY = -250.0
+ACCEL = null
+player = NodePath(".")
+audio = NodePath("AudioStreamPlayer")
+RUN_MULTIPLIER = 1.8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1596942556]
+scale = Vector2(0.1953125, 0.1953125)
+sprite_frames = SubResource("SpriteFrames_dqkch")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1520964952]
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1744957570]
+stream = ExtResource("3_qhqgy")

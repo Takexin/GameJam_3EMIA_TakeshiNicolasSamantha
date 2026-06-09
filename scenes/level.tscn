@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b0ek7f13ak7vo" path="res://scenes/door.tscn" id="9_8c41q"]
 [ext_resource type="Shader" uid="uid://cn2uqn7tjwceo" path="res://shaders/vignette.gdshader" id="10_olg7q"]
 [ext_resource type="Shader" uid="uid://cj0ti3gs6bdo0" path="res://shaders/crt.gdshader" id="11_t1rx8"]
+[ext_resource type="AudioStream" uid="uid://j6cnvstvlm12" path="res://assets/audio/universfield-dreaming-rain-454684.mp3" id="12_8iemx"]
 
 [sub_resource type="Animation" id="Animation_b121j"]
 length = 0.001
@@ -160,6 +161,42 @@ shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.5
 
+[sub_resource type="Animation" id="Animation_64w2a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/background:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8iemx"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/background:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_64w2a"]
+_data = {
+&"RESET": SubResource("Animation_64w2a"),
+&"start": SubResource("Animation_8iemx")
+}
+
 [node name="level" type="Node2D" unique_id=1766303284]
 texture_filter = 1
 script = ExtResource("1_b121j")
@@ -247,16 +284,31 @@ shape = SubResource("WorldBoundaryShape2D_klq6b")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1573505517]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=728709530]
+[node name="vignette" type="ColorRect" parent="CanvasLayer" unique_id=728709530]
 material = SubResource("ShaderMaterial_olg7q")
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(1, 1, 1, 0)
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer" unique_id=1020560778]
+[node name="crt" type="ColorRect" parent="CanvasLayer" unique_id=1020560778]
 material = SubResource("ShaderMaterial_8iemx")
 offset_right = 1152.0
 offset_bottom = 648.0
+
+[node name="background" type="ColorRect" parent="CanvasLayer" unique_id=412890612]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="ambience" type="AudioStreamPlayer" parent="." unique_id=40447593]
+stream = ExtResource("12_8iemx")
+volume_db = -15.0
+autoplay = true
+bus = &"background"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=734353907]
+libraries/ = SubResource("AnimationLibrary_64w2a")
+autoplay = &"start"
 
 [connection signal="body_entered" from="tilemap/Plataforma4/Area2D" to="tilemap/Plataforma4" method="_on_area_2d_body_entered"]
 [connection signal="finished" from="tilemap/Door" to="." method="_on_door_finished"]

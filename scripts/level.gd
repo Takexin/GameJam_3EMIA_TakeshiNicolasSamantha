@@ -1,6 +1,6 @@
 extends Node2D
 @onready var player_camera : Camera2D = $player/Camera2D2
-@onready var color_rect: ColorRect = $CanvasLayer/ColorRect
+@onready var color_rect: ColorRect = $CanvasLayer/vignette
 
 var can_transition : bool = false
 var shader_radius = 0:
