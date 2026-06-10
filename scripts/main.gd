@@ -23,7 +23,7 @@ func load_level() -> void:
 func _on_button_pressed() -> void:
 	load_level()
 func on_finished() -> void:
-	get_node("level").queue_free()
+	level_instance.queue_free()
 	var cutscene_instance = end_cutscene.instantiate()
 	add_child(cutscene_instance)
 	
