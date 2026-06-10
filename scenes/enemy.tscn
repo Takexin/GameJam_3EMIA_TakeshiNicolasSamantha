@@ -1,22 +1,57 @@
 [gd_scene format=3 uid="uid://b5hbqvm3cmv3q"]
 
 [ext_resource type="Script" uid="uid://dvlwnqbl4bxdi" path="res://scripts/enemy.gd" id="1_5uy6h"]
-[ext_resource type="Texture2D" uid="uid://c1avxbdk2w01j" path="res://icon.svg" id="2_4ra3w"]
+[ext_resource type="Texture2D" uid="uid://muiv31xe32sf" path="res://assets/images/zombie/zombiewalk_outline_flatten-Sheet.png" id="2_4ra3w"]
 [ext_resource type="Script" uid="uid://dofs7kpwj50os" path="res://scripts/killzone.gd" id="2_md0e3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
 atlas = ExtResource("2_4ra3w")
-region = Rect2(0, 0, 128, 128)
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4w8v"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwavj"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nenq2"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md484"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipns3"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8tegq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5uy6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4w8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwavj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nenq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md484")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipns3")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 6.0
+"speed": 7.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ra3w"]
@@ -29,8 +64,9 @@ size = Vector2(28, 22)
 script = ExtResource("1_5uy6h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1833163393]
-position = Vector2(0, 3)
-scale = Vector2(-0.21711423, 0.16418375)
+texture_filter = 1
+position = Vector2(0, -4)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_8tegq")
 animation = &"walk"
 autoplay = "walk"

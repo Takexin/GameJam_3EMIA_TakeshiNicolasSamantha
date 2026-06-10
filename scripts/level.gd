@@ -1,6 +1,7 @@
 extends Node2D
 @onready var player_camera : Camera2D = $player/Camera2D2
 @onready var color_rect: ColorRect = $CanvasLayer/vignette
+@onready var player: CharacterBody2D = $player
 
 var can_transition : bool = false
 var shader_radius = 0:
@@ -8,6 +9,8 @@ var shader_radius = 0:
 		shader_radius = value
 		color_rect.material.set_shader_parameter("radius", shader_radius)
 signal finished
+signal reset
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if can_transition:
@@ -17,12 +20,20 @@ func _process(delta: float) -> void:
 
 func _on_final_platform_body_entered(body: Node2D) -> void:
 	if body.is_in_group(&"player"):
-		#var tween : Tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		#tween.tween_property(player_camera, "zoom", Vector2(5,5), 2)
 		can_transition = true
-		#color_rect.material.set_shader_parameter("radius", 1)
+		var player_audio : AudioStreamPlayer = player.audio
+		player_audio.bus = "background"
+		player.SPEED = 50
 
 
 
 func _on_door_finished() -> void:
 	finished.emit()
+
+
+func _on_item_finished() -> void:
+	player.on_item_pickup()
+
+
+func _on_player_player_died() -> void:
+	reset.emit()

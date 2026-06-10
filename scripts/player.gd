@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+signal player_died
 
 @export var SPEED := 300.0
 @export var JUMP_VELOCITY := -400.0
@@ -11,8 +11,10 @@ extends CharacterBody2D
 var multiplier : float = 1.0
 
 var can_jump : bool = false
+var can_run : bool = false
 
 var is_walking : bool = false
+var is_jumping : bool = false
 var walking_pos : Array = [3,4,7,8]
 
 var direction : float = 0.0
@@ -24,14 +26,19 @@ func handle_animations() -> void:
 		sprite.flip_h = true
 	
 	if is_on_floor():
-		if direction != 0:
+		if is_jumping:
+			is_jumping = false
+			sprite.play("jump_land")
+			await sprite.animation_finished
+			return
+		elif direction != 0:
 			if multiplier != 1:
 				sprite.play("run")
 			else:
 				sprite.play("walk")
 		else:
 			sprite.play("idle")
-	elif !is_on_floor():
+	else:
 		if velocity.y < 0:
 			sprite.play("jump_up")
 		else:
@@ -57,15 +64,16 @@ func handle_audio() -> void:
 func handle_jump() -> void:
 	if not is_on_floor():
 		if can_jump:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.075).timeout
 			can_jump = false
 	else:
 		can_jump = true
 
+func on_item_pickup() -> void:
+	can_run = true
 
 func die() -> void:
-	get_tree().call_deferred(&"reload_current_scene")
-
+	player_died.emit()
 func _physics_process(delta: float) -> void:
 	handle_jump()
 	if not is_on_floor():
@@ -74,11 +82,11 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and can_jump:
 		can_jump = false
-
+		is_jumping = true
 		sprite.play("jump_prepare")
 		velocity.y = JUMP_VELOCITY
 
-	if Input.is_action_pressed("run"):
+	if Input.is_action_pressed("run") and can_run:
 		multiplier = RUN_MULTIPLIER
 	else:
 		multiplier = 1.0

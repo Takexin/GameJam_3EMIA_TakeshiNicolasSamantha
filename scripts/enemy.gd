@@ -17,8 +17,10 @@ func _physics_process(delta):
 	# Inverte ao detectar borda com o método padrão do Raycast2D is_colliding()
 	if not floor_left.is_colliding():
 		direction = 1
+		anim.flip_h = false
 	if not floor_right.is_colliding():
 		direction = -1
+		anim.flip_h = true
 		# Aplica velocidade no eixo x
 	velocity.x = direction * SPEED
 	anim.flip_h = direction < 0

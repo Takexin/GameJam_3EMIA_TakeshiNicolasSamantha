@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://cw5wbvul76c1o"]
+
+[ext_resource type="Script" uid="uid://fkmmaxjm5e67" path="res://scripts/item.gd" id="1_6muww"]
+[ext_resource type="Texture2D" uid="uid://cqsyfwbbm1dxj" path="res://assets/images/pochita.png" id="2_6muww"]
+[ext_resource type="Texture2D" uid="uid://d28qr0eubd6nj" path="res://assets/images/Keyboard & Mouse/Double/keyboard_e_outline.png" id="3_ro5b8"]
+[ext_resource type="AudioStream" uid="uid://bx1t6kjhksi18" path="res://assets/audio/pickup.mp3" id="4_vljjh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hpvv5"]
+size = Vector2(48, 46)
+
+[sub_resource type="Animation" id="Animation_83dcw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -3.9999998)]
+}
+
+[sub_resource type="Animation" id="Animation_uvdjg"]
+resource_name = "interact"
+step = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -3.9999998), Vector2(0, -16.999998)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_83dcw"]
+_data = {
+&"RESET": SubResource("Animation_83dcw"),
+&"interact": SubResource("Animation_uvdjg")
+}
+
+[node name="Item" type="Node2D" unique_id=430821726 node_paths=PackedStringArray("text", "animation_player")]
+texture_filter = 1
+script = ExtResource("1_6muww")
+text = NodePath("RichTextLabel")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="door" type="Sprite2D" parent="." unique_id=1464404548]
+position = Vector2(0, 14)
+texture = ExtResource("2_6muww")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1809045721]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=190113074]
+position = Vector2(-2, 8)
+shape = SubResource("RectangleShape2D_hpvv5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1173221459]
+libraries/ = SubResource("AnimationLibrary_83dcw")
+speed_scale = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1463862568]
+visible = false
+z_index = 2
+position = Vector2(0, -3.9999998)
+scale = Vector2(0.205, 0.205)
+texture = ExtResource("3_ro5b8")
+offset = Vector2(0, 39)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=839076910]
+offset_left = -101.0
+offset_top = -32.0
+offset_right = 109.0
+offset_bottom = 8.0
+bbcode_enabled = true
+text = "[shake rate=10]Você desbloqueou \"Correr\""
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="pickupSound" type="AudioStreamPlayer" parent="." unique_id=1883437706]
+stream = ExtResource("4_vljjh")
+volume_db = -4.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

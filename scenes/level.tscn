@@ -12,6 +12,7 @@
 [ext_resource type="Shader" uid="uid://cn2uqn7tjwceo" path="res://shaders/vignette.gdshader" id="10_olg7q"]
 [ext_resource type="Shader" uid="uid://cj0ti3gs6bdo0" path="res://shaders/crt.gdshader" id="11_t1rx8"]
 [ext_resource type="AudioStream" uid="uid://j6cnvstvlm12" path="res://assets/audio/universfield-dreaming-rain-454684.mp3" id="12_8iemx"]
+[ext_resource type="PackedScene" uid="uid://cw5wbvul76c1o" path="res://scenes/item.tscn" id="13_64w2a"]
 
 [sub_resource type="Animation" id="Animation_b121j"]
 length = 0.001
@@ -249,6 +250,9 @@ autoplay = &"move"
 [node name="Door" parent="tilemap" unique_id=430821726 instance=ExtResource("9_8c41q")]
 position = Vector2(2625, 96)
 
+[node name="Item" parent="." unique_id=1337380625 instance=ExtResource("13_64w2a")]
+position = Vector2(387, 176)
+
 [node name="player" parent="." unique_id=2105447671 instance=ExtResource("2_w7c3h")]
 position = Vector2(181, 65)
 
@@ -304,7 +308,6 @@ color = Color(0, 0, 0, 1)
 stream = ExtResource("12_8iemx")
 volume_db = -15.0
 autoplay = true
-bus = &"background"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=734353907]
 libraries/ = SubResource("AnimationLibrary_64w2a")
@@ -312,4 +315,6 @@ autoplay = &"start"
 
 [connection signal="body_entered" from="tilemap/Plataforma4/Area2D" to="tilemap/Plataforma4" method="_on_area_2d_body_entered"]
 [connection signal="finished" from="tilemap/Door" to="." method="_on_door_finished"]
+[connection signal="finished" from="Item" to="." method="_on_item_finished"]
+[connection signal="player_died" from="player" to="." method="_on_player_player_died"]
 [connection signal="body_entered" from="finalPlatform" to="." method="_on_final_platform_body_entered"]
