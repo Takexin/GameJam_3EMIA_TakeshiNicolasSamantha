@@ -3,14 +3,19 @@
 [ext_resource type="Script" uid="uid://cysvcsgr43ie0" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://cxxrprtmru8l2" path="res://scenes/level.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://deuftm3m8cqh7" path="res://scenes/end_cutscene.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cx176tnv5afe8" path="res://scenes/gameover.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://4hjo8lugp67t" path="res://scenes/pause_menu.tscn" id="5_tbgi4"]
 
 [node name="Main" type="Node" unique_id=1974821569 node_paths=PackedStringArray("control")]
 script = ExtResource("1_o5qli")
 level = ExtResource("2_0wfyh")
-control = NodePath("Control")
+control = NodePath("CanvasLayer/Control")
 end_cutscene = ExtResource("3_sugp2")
 
-[node name="Control" type="Control" parent="." unique_id=179753141]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1386966686]
+layer = 2
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=179753141]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1916212386]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=1916212386]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -29,12 +34,12 @@ offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer" unique_id=1082990565]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer" unique_id=1082990565]
 layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/HBoxContainer/VBoxContainer" unique_id=203838410]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer" unique_id=203838410]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 44
 bbcode_enabled = true
@@ -42,21 +47,28 @@ text = "[fade length=14][wave][rainbow speed=0.1 freq=]Dream [/rainbow] Door"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Control/HBoxContainer/VBoxContainer" unique_id=955844101]
+[node name="Label2" type="Label" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer" unique_id=955844101]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Chainsaw Man: Reze Arc"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=956486225]
+[node name="Button" type="Button" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer" unique_id=956486225]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Start"
 
-[node name="Button2" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=140707954]
+[node name="exit" type="Button" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer" unique_id=140707954]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Exit"
 
-[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[node name="Gameover" parent="CanvasLayer" unique_id=1828001683 instance=ExtResource("4_jyhfs")]
+visible = false
+
+[node name="PauseMenu" parent="." unique_id=1384955080 instance=ExtResource("5_tbgi4")]
+
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/VBoxContainer/exit" to="." method="exit"]
+[connection signal="retry" from="CanvasLayer/Gameover" to="." method="retry"]

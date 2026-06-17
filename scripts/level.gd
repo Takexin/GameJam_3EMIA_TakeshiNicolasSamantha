@@ -2,6 +2,7 @@ extends Node2D
 @onready var player_camera : Camera2D = $player/Camera2D2
 @onready var color_rect: ColorRect = $CanvasLayer/vignette
 @onready var player: CharacterBody2D = $player
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
 
 var can_transition : bool = false
 var shader_radius = 0:
@@ -36,4 +37,6 @@ func _on_item_finished() -> void:
 
 
 func _on_player_player_died() -> void:
+	player.set_physics_process(false)
+	player.set_process(false)
 	reset.emit()

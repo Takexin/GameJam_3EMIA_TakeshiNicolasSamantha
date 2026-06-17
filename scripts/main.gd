@@ -1,5 +1,6 @@
 extends Node
 
+@onready var gameover: Control = $CanvasLayer/Gameover
 @export var level: PackedScene
 @export var control: Control
 @export var end_cutscene: PackedScene
@@ -29,5 +30,12 @@ func on_finished() -> void:
 	
 
 func on_level_player_died() -> void:
+	gameover.show()
+
+func retry() -> void:
+	gameover.hide()
 	level_instance.queue_free()
 	load_level()
+
+func exit() -> void:
+	get_tree().quit()
