@@ -34,7 +34,9 @@ func _on_door_finished() -> void:
 func _on_item_finished() -> void:
 	player.on_item_pickup()
 
-
+func start_chase(body) -> void:
+	if body.is_in_group("player"):
+		$chaseCollision/AnimationPlayer.play("start")
 func _on_player_player_died() -> void:
 	player.set_physics_process(false)
 	player.set_process(false)

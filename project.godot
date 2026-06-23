@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Behind the Door"
 run/main_scene="uid://ca0ix7a7oyt2b"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [audio]
