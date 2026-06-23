@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://qycsaulniwqr"]
+
+[ext_resource type="Script" uid="uid://cg086xmnluwx0" path="res://scripts/collectable.gd" id="1_llfh3"]
+[ext_resource type="Texture2D" uid="uid://bmpb8v0qvi7s" path="res://assets/images/items/denjifavorite.png.png" id="1_ti8a4"]
+[ext_resource type="AudioStream" uid="uid://bx1t6kjhksi18" path="res://assets/audio/pickup.mp3" id="3_dnya4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_llfh3"]
+size = Vector2(41, 29)
+
+[node name="Collectable" type="Node2D" unique_id=694706098]
+script = ExtResource("1_llfh3")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=716916354]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1954970881]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_llfh3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2009917499]
+texture_filter = 1
+texture = ExtResource("1_ti8a4")
+
+[node name="pickupSound" type="AudioStreamPlayer" parent="." unique_id=48210784]
+stream = ExtResource("3_dnya4")
+volume_db = -4.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

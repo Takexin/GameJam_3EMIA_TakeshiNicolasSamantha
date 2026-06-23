@@ -21,6 +21,8 @@ func _process(delta: float) -> void:
 
 func _on_final_platform_body_entered(body: Node2D) -> void:
 	if body.is_in_group(&"player"):
+		#$chaseCollision/chase.play("start")
+		body.audio.volume_db = 3
 		can_transition = true
 		var player_audio : AudioStreamPlayer = player.audio
 		player_audio.bus = "background"
@@ -32,11 +34,13 @@ func _on_door_finished() -> void:
 
 
 func _on_item_finished() -> void:
+	$chaseCollision/chase.play("start")
+
 	player.on_item_pickup()
 
 func start_chase(body) -> void:
-	if body.is_in_group("player"):
-		$chaseCollision/AnimationPlayer.play("start")
+	pass
+	#if body.is_in_group("player"):
 func _on_player_player_died() -> void:
 	player.set_physics_process(false)
 	player.set_process(false)

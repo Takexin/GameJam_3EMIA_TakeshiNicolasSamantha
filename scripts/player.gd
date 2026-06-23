@@ -6,10 +6,11 @@ signal player_died
 @export var ACCEL : float = 20.0
 @export var audio: AudioStreamPlayer
 @export var sprite: AnimatedSprite2D
+@onready var score_label: RichTextLabel = $CanvasLayer/Control/RichTextLabel
 
 @export var RUN_MULTIPLIER : float = 10.0
 var multiplier : float = 1.0
-
+var score : int = 0
 var can_jump : bool = false
 var can_run : bool = false
 
@@ -18,7 +19,9 @@ var is_jumping : bool = false
 var walking_pos : Array = [3,4,7,8]
 
 var direction : float = 0.0
-
+func on_collectable() -> void:
+	score += 1
+	score_label.text = "[shake rate=10]%s/5"%score
 func handle_animations() -> void:
 	if direction > 0:
 		sprite.flip_h = false
@@ -64,7 +67,7 @@ func handle_audio() -> void:
 func handle_jump() -> void:
 	if not is_on_floor():
 		if can_jump:
-			await get_tree().create_timer(0.075).timeout
+			await get_tree().create_timer(0.105).timeout
 			can_jump = false
 	else:
 		can_jump = true
@@ -91,8 +94,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		multiplier = 1.0
 	
-	if Input.is_action_just_pressed("debug"):
-		get_tree().reload_current_scene()
+	#if Input.is_action_just_pressed("debug"):
+		#get_tree().reload_current_scene()
 	direction = Input.get_axis("left", "right")
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED * multiplier, ACCEL)

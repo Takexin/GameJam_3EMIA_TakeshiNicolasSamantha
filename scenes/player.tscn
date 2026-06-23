@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://jpw1fd8qg60t" path="res://assets/audio/walking.mp3" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://entcx7rbcdad" path="res://assets/images/player/denis_run_outline_flatten-Sheet.png" id="3_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://8ui5vipnujvo" path="res://assets/images/player/denis_jump_outline_flatten-Sheet.png" id="3_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://bmpb8v0qvi7s" path="res://assets/images/items/denjifavorite.png.png" id="7_fjrip"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
 atlas = ExtResource("2_qhqgy")
@@ -124,7 +125,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ur7pv")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 7.0
 }, {
@@ -132,7 +133,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ke2ow")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump_down",
 "speed": 5.0
 }, {
@@ -143,7 +144,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_31cv2")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump_land",
 "speed": 2.0
 }, {
@@ -151,7 +152,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a38lo")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump_prepare",
 "speed": 5.0
 }, {
@@ -162,7 +163,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l71n6")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump_up",
 "speed": 5.0
 }, {
@@ -185,7 +186,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_i4ail")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 9.0
 }, {
@@ -208,7 +209,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_oprun")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 8.0
 }]
@@ -239,3 +240,34 @@ shape = SubResource("RectangleShape2D_g2els")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1744957570]
 stream = ExtResource("3_qhqgy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1007007397]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1073462990]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control" unique_id=1730273884]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 97.0
+offset_right = 257.0
+offset_bottom = 161.0
+theme_override_font_sizes/normal_font_size = 46
+bbcode_enabled = true
+text = "[shake rate=10]0"
+fit_content = true
+autowrap_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1917695603]
+texture_filter = 1
+layout_mode = 0
+offset_left = 156.0
+offset_top = 109.0
+offset_right = 196.0
+offset_bottom = 149.0
+texture = ExtResource("7_fjrip")
